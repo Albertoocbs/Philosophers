@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://github.com/Albertoocbs/Philosophers">
-    <img src="https://github.com/Albertoocbs/Philosophers/blob/main/philo.png" width="100"/>
+    <img src="https://github.com/Albertoocbs/Philosophers/blob/main/philo.png" width="110"/>
   </a>
 </p>
 
