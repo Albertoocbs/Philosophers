@@ -6,7 +6,7 @@
 /*   By: aoutumur <aoutumur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 08:51:54 by aoutumur          #+#    #+#             */
-/*   Updated: 2025/05/05 14:27:59 by aoutumur         ###   ########.fr       */
+/*   Updated: 2025/05/08 11:29:17 by aoutumur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_philo
 {
 	pthread_t		thread;
 	unsigned int	id;
+	unsigned int	times_ate;
 	time_t			last_meal;
 	pthread_mutex_t	meal_time_lock;
 	pthread_mutex_t	*left_fork;
@@ -53,6 +54,7 @@ typedef struct s_table
 	time_t			time_to_die;
 	time_t			time_to_eat;
 	time_t			time_to_sleep;
+	int				must_eat_count;
 	bool			sim_stop;
 	pthread_mutex_t	sim_stop_lock;
 	pthread_mutex_t	write_lock;
@@ -96,6 +98,7 @@ void	drop_forks(t_philo *philo);
 void	*monitor(void *arg);
 bool	get_sim_stop(t_table *table);
 void	set_sim_stop(t_table *table);
+bool	check_all_ate(t_table *table);
 
 /*--------------Output------------------*/
 void	safe_print(t_table *table, int id, char *msg);

@@ -6,7 +6,7 @@
 /*   By: aoutumur <aoutumur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 08:52:03 by aoutumur          #+#    #+#             */
-/*   Updated: 2025/05/05 14:28:21 by aoutumur         ###   ########.fr       */
+/*   Updated: 2025/05/08 11:03:32 by aoutumur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 t_table	*init_table(int argc, char **argv, int i)
 {
 	t_table	*table;
+
 	(void)argc;
 	(void)i;
-
 	table = malloc(sizeof(t_table));
 	if (!table)
 		return (NULL);
@@ -25,6 +25,10 @@ t_table	*init_table(int argc, char **argv, int i)
 	table->time_to_die = ft_atoi(argv[2]);
 	table->time_to_eat = ft_atoi(argv[3]);
 	table->time_to_sleep = ft_atoi(argv[4]);
+	if (argc == 6)
+		table->must_eat_count = ft_atoi(argv[5]);
+	else
+		table->must_eat_count = -1;
 	table->sim_stop = false;
 	table->start_time = get_time();
 	table->fork_locks = NULL;
@@ -67,6 +71,7 @@ t_philo	*init_philosophers(t_table *table)
 			return (error_null("mutex init failed (meal_time)", NULL, table));
 		philos[i].id = i;
 		philos[i].table = table;
+		philos[i].times_ate = 0;
 		philos[i].last_meal = get_time();
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: aoutumur <aoutumur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 10:58:02 by aoutumur          #+#    #+#             */
-/*   Updated: 2025/05/05 14:25:39 by aoutumur         ###   ########.fr       */
+/*   Updated: 2025/05/08 11:53:11 by aoutumur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	main(int argc, char **argv)
 	t_table	*table;
 
 	table = NULL;
-	if (argc != 5)
+	if (argc != 5 && argc != 6)
 		return (printf(ERR_ARGC), 0);
 	if (!is_valid_input(argc, argv))
 		return (EXIT_FAILURE);

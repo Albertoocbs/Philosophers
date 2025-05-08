@@ -6,7 +6,7 @@
 /*   By: aoutumur <aoutumur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 11:00:43 by aoutumur          #+#    #+#             */
-/*   Updated: 2025/05/05 14:24:17 by aoutumur         ###   ########.fr       */
+/*   Updated: 2025/05/08 10:45:32 by aoutumur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ int	is_valid_input(int argc, char **argv)
 		number = ft_atoi(argv[i]);
 		if (number == -1)
 			return (printf(ERR_INVALID_INT), 0);
+		if (argc == 6 && ft_atoi(argv[5]) <= 0)
+		{
+			printf("Error: num_of_times_philosopher_must_eat must be > 0\n");
+			return (0);
+		}
 		if (i == 1 && (number < 1 || number > MAX_PHILOS))
 			return (printf(ERR_PHILO_MAX, MAX_PHILOS), 0);
 		i++;

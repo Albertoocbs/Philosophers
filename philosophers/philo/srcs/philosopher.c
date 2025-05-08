@@ -6,7 +6,7 @@
 /*   By: aoutumur <aoutumur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 10:58:13 by aoutumur          #+#    #+#             */
-/*   Updated: 2025/05/05 14:24:23 by aoutumur         ###   ########.fr       */
+/*   Updated: 2025/05/08 10:43:16 by aoutumur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	eat(t_philo *philo)
 	safe_print(philo->table, philo->id, "is eating");
 	pthread_mutex_lock(&philo->meal_time_lock);
 	philo->last_meal = get_time();
+	philo->times_ate++;
 	pthread_mutex_unlock(&philo->meal_time_lock);
 	ft_usleep(philo->table->time_to_eat, philo->table);
 }
