@@ -6,7 +6,7 @@
 #    By: aoutumur <aoutumur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/14 10:58:17 by aoutumur          #+#    #+#              #
-#    Updated: 2025/05/08 10:53:15 by aoutumur         ###   ########.fr        #
+#    Updated: 2025/05/14 10:50:00 by aoutumur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,10 @@ NAME =		philo
 
 SRCS =		srcs/main.c \
 			srcs/parsing.c \
-			srcs/time.c \
+			srcs/utils.c \
 			srcs/philosopher.c \
 			srcs/init.c \
-			srcs/output.c \
-			srcs/exit_error_handling.c\
+			srcs/exit.c\
 			srcs/monitor.c \
 
 OBJS =		$(SRCS:.c=.o)
