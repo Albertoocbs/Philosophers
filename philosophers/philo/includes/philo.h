@@ -6,7 +6,7 @@
 /*   By: aoutumur <aoutumur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 08:51:54 by aoutumur          #+#    #+#             */
-/*   Updated: 2025/05/08 11:29:17 by aoutumur         ###   ########.fr       */
+/*   Updated: 2025/05/14 12:16:17 by aoutumur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct s_table
 {
 	time_t			start_time;
 	unsigned int	nb_philos;
-	pthread_t		grim_reaper;
 	time_t			time_to_die;
 	time_t			time_to_eat;
 	time_t			time_to_sleep;
@@ -81,11 +80,10 @@ int		is_only_digits(char *str);
 int		ft_atoi(char *str);
 int		is_valid_input(int argc, char **argv);
 
-/*----------------get_time-------------------*/
+/*----------------Utils---------------------*/
 long	get_time(void);
-
-/*----------------ft_usleep----------------*/
 void	ft_usleep(useconds_t time_in_ms, t_table *table);
+void	safe_print(t_table *table, int id, char *msg);
 
 /*--------------Philosophers-------------*/
 void	*philo_routine(void *arg);
@@ -94,13 +92,10 @@ void	sleep_and_think(t_philo *philo);
 void	take_forks(t_philo *philo);
 void	drop_forks(t_philo *philo);
 
-/*--------------Grim_Reaper--------------*/
+/*--------------Monitor--------------*/
 void	*monitor(void *arg);
 bool	get_sim_stop(t_table *table);
 void	set_sim_stop(t_table *table);
 bool	check_all_ate(t_table *table);
-
-/*--------------Output------------------*/
-void	safe_print(t_table *table, int id, char *msg);
 
 #endif
