@@ -6,7 +6,7 @@
 /*   By: aoutumur <aoutumur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 10:58:02 by aoutumur          #+#    #+#             */
-/*   Updated: 2025/05/08 11:53:11 by aoutumur         ###   ########.fr       */
+/*   Updated: 2025/05/14 12:13:57 by aoutumur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,6 @@ bool	start_simulation(t_table *table)
 	return (true);
 }
 
-/* stop_simulation function*/
-void	stop_simulation(t_table *table)
-{
-	pthread_join(table->grim_reaper, NULL);
-	pthread_mutex_destroy(&table->sim_stop_lock);
-	pthread_mutex_destroy(&table->write_lock);
-	destroy_mutexes(table);
-	free_table(table);
-}
-
 int	main(int argc, char **argv)
 {
 	t_table	*table;
@@ -82,6 +72,6 @@ int	main(int argc, char **argv)
 		return (free_table(table), 1);
 	if (!start_simulation(table))
 		return (EXIT_FAILURE);
-	stop_simulation(table);
+	free_table(table);
 	return (EXIT_SUCCESS);
 }
