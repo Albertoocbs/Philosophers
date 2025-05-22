@@ -6,7 +6,7 @@
 /*   By: aoutumur <aoutumur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 08:51:54 by aoutumur          #+#    #+#             */
-/*   Updated: 2025/05/22 13:46:03 by aoutumur         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:55:55 by aoutumur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <string.h>
 # include <sys/time.h>
 # include <unistd.h>
-# include <signal.h>
 
 # define MAX_PHILOS 200
 
