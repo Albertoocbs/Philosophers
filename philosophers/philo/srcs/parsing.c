@@ -6,17 +6,17 @@
 /*   By: aoutumur <aoutumur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 11:00:43 by aoutumur          #+#    #+#             */
-/*   Updated: 2025/05/08 10:45:32 by aoutumur         ###   ########.fr       */
+/*   Updated: 2025/05/20 13:41:50 by aoutumur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 /* contains_only_digits:
-*	Checks if a string contains only digits 0 - 9.
-*	Returns true if the string only contains digits.
-*	Returns false if the string contains a character that is not a digit.
-*/
+ *	Checks if a string contains only digits 0 - 9.
+ *	Returns true if the string only contains digits.
+ *	Returns false if the string contains a character that is not a digit.
+ */
 int	is_only_digits(char *str)
 {
 	int	i;
@@ -32,10 +32,10 @@ int	is_only_digits(char *str)
 }
 
 /* integer_atoi:
-*	Converts a digit-only string into a positive integer.
-*	Returns the converted number between 0 and INT MAX.
-*	Returns -1 if the converted number exceeds INT MAX.
-*/
+ *	Converts a digit-only string into a positive integer.
+ *	Returns the converted number between 0 and INT MAX.
+ *	Returns -1 if the converted number exceeds INT MAX.
+ */
 int	ft_atoi(char *str)
 {
 	unsigned long long int	number;
@@ -54,11 +54,11 @@ int	ft_atoi(char *str)
 }
 
 /* is_valid_input:
-*	Checks if all required arguments are valid
-*	digits only, which does not exceed INT MAX.
-*	Also checks if number of philosophers is valid (between 1 & MAX_PHILOS).
-*	Returns true if all arguments are valid, false if one of them is invalid.
-*/
+ *	Checks if all required arguments are valid
+ *	digits only, which does not exceed INT MAX.
+ *	Also checks if number of philosophers is valid (between 1 & MAX_PHILOS).
+ *	Returns true if all arguments are valid, false if one of them is invalid.
+ */
 int	is_valid_input(int argc, char **argv)
 {
 	int	i;

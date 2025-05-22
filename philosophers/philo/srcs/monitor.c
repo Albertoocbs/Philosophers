@@ -6,16 +6,16 @@
 /*   By: aoutumur <aoutumur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:39:24 by aoutumur          #+#    #+#             */
-/*   Updated: 2025/05/08 11:48:58 by aoutumur         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:39:30 by aoutumur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 /*
-*	Checks if all philosophers have eaten the required number of times
-*	Returns true if all philosophers have eaten the required number of times
-*/
+ *	Checks if all philosophers have eaten the required number of times
+ *	Returns true if all philosophers have eaten the required number of times
+ */
 bool	check_all_ate(t_table *table)
 {
 	unsigned int	i;
@@ -40,11 +40,11 @@ bool	check_all_ate(t_table *table)
 }
 
 /*
-*	Checks if a philosopher has died
-*	Returns true if a philosopher has died and false otherwise
-*	Locks the meal_time_lock mutex of each philosopher to check last meal time
-*	Compares the last meal time with the current time and the time to die
-*/
+ *	Checks if a philosopher has died
+ *	Returns true if a philosopher has died and false otherwise
+ *	Locks the meal_time_lock mutex of each philosopher to check last meal time
+ *	Compares the last meal time with the current time and the time to die
+ */
 bool	check_philo_death(t_table *table)
 {
 	unsigned int	i;
@@ -73,23 +73,23 @@ bool	check_philo_death(t_table *table)
 	Returns NULL when the simulation is stopped or when a philosopher dies.
 	Uses usleep to avoid busy waiting.
 */
-void	*monitor(void *arg)
+bool	monitor(t_table *table)
 {
-	t_table	*table;
-
-	table = (t_table *)arg;
 	while (!get_sim_stop(table))
 	{
 		if (check_philo_death(table))
-			return (NULL);
+		{
+			set_sim_stop(table);
+			return (true);
+		}
 		if (table->must_eat_count != -1 && check_all_ate(table))
 		{
 			set_sim_stop(table);
-			return (NULL);
+			return (true);
 		}
 		usleep(1000);
 	}
-	return (NULL);
+	return (true);
 }
 
 /*

@@ -6,11 +6,41 @@
 /*   By: aoutumur <aoutumur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 10:46:25 by aoutumur          #+#    #+#             */
-/*   Updated: 2025/05/14 10:47:14 by aoutumur         ###   ########.fr       */
+/*   Updated: 2025/05/20 13:45:42 by aoutumur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+/* destroy_mutexts:
+ *	Destroys every mutex created by the program: fork locks, meal locks,
+ *	the write and simulation stopper lock.
+ */
+void	destroy_mutexes(t_table *table)
+{
+	unsigned int	i;
+
+	i = 0;
+	if (table->fork_locks)
+	{
+		while (i < table->nb_philos)
+		{
+			pthread_mutex_destroy(&table->fork_locks[i]);
+			i++;
+		}
+	}
+	i = 0;
+	if (table->philos)
+	{
+		while (i < table->nb_philos)
+		{
+			pthread_mutex_destroy(&table->philos[i].meal_time_lock);
+			i++;
+		}
+	}
+	pthread_mutex_destroy(&table->write_lock);
+	pthread_mutex_destroy(&table->sim_stop_lock);
+}
 
 /*
  *	Uses gettimeofday to get the current time and convert it to milliseconds.
@@ -33,7 +63,7 @@ long	get_time(void)
  *	the thread can react immediately and exit early, preventing delays.
  *	Otherwise, the thread sleeps for the specified time until time is up.
  */
-void	ft_usleep(useconds_t time_in_ms, t_table *table)
+void	ft_usleep(unsigned int time_in_ms, t_table *table)
 {
 	time_t	start;
 

@@ -6,21 +6,14 @@
 /*   By: aoutumur <aoutumur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 08:52:03 by aoutumur          #+#    #+#             */
-/*   Updated: 2025/05/08 11:03:32 by aoutumur         ###   ########.fr       */
+/*   Updated: 2025/05/20 13:44:02 by aoutumur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_table	*init_table(int argc, char **argv, int i)
+bool	init_table(t_table *table, int argc, char **argv)
 {
-	t_table	*table;
-
-	(void)argc;
-	(void)i;
-	table = malloc(sizeof(t_table));
-	if (!table)
-		return (NULL);
 	table->nb_philos = ft_atoi(argv[1]);
 	table->time_to_die = ft_atoi(argv[2]);
 	table->time_to_eat = ft_atoi(argv[3]);
@@ -31,9 +24,7 @@ t_table	*init_table(int argc, char **argv, int i)
 		table->must_eat_count = -1;
 	table->sim_stop = false;
 	table->start_time = get_time();
-	table->fork_locks = NULL;
-	table->philos = NULL;
-	return (table);
+	return (true);
 }
 
 bool	init_mutexes(t_table *table)
@@ -42,9 +33,6 @@ bool	init_mutexes(t_table *table)
 
 	if (pthread_mutex_init(&table->sim_stop_lock, NULL) != 0
 		|| pthread_mutex_init(&table->write_lock, NULL) != 0)
-		return (false);
-	table->fork_locks = malloc(sizeof(pthread_mutex_t) * table->nb_philos);
-	if (!table->fork_locks)
 		return (false);
 	i = 0;
 	while (i < table->nb_philos)
@@ -56,39 +44,44 @@ bool	init_mutexes(t_table *table)
 	return (true);
 }
 
-t_philo	*init_philosophers(t_table *table)
+bool	init_philosophers(t_table *table)
 {
-	t_philo			*philos;
 	unsigned int	i;
 
-	philos = malloc(sizeof(t_philo) * table->nb_philos);
-	if (!philos)
-		return (error_null("malloc failed (philos)", NULL, table));
 	i = 0;
 	while (i < table->nb_philos)
 	{
-		if (pthread_mutex_init(&philos[i].meal_time_lock, NULL) != 0)
-			return (error_null("mutex init failed (meal_time)", NULL, table));
-		philos[i].id = i;
-		philos[i].table = table;
-		philos[i].times_ate = 0;
-		philos[i].last_meal = get_time();
+		if (pthread_mutex_init(&table->philos[i].meal_time_lock, NULL) != 0)
+		{
+			while (i > 0)
+			{
+				i--;
+				pthread_mutex_destroy(&table->philos[i].meal_time_lock);
+			}
+			printf("Error: mutex init failed (meal time)\n");
+			return (false);
+		}
+		table->philos[i].id = i;
+		table->philos[i].table = table;
+		table->philos[i].times_ate = 0;
+		table->philos[i].last_meal = get_time();
 		i++;
 	}
-	assign_forks(table, philos);
-	return (philos);
+	assign_forks(table);
+	return (true);
 }
 
-void	assign_forks(t_table *table, t_philo *philos)
+void	assign_forks(t_table *table)
 {
 	unsigned int	i;
 
 	i = 0;
 	while (i < table->nb_philos)
 	{
-		philos[i].left_fork = &table->fork_locks[i];
-		philos[i].right_fork = &table->fork_locks[(i + 1) % table->nb_philos];
-		assign_fork_order(&philos[i]);
+		table->philos[i].left_fork = &table->fork_locks[i];
+		table->philos[i].right_fork = &table->fork_locks[(i + 1)
+			% table->nb_philos];
+		assign_fork_order(&table->philos[i]);
 		i++;
 	}
 }
