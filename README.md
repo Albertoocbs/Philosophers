@@ -11,7 +11,7 @@ This project is based in the basics of threading a process. We learn how to crea
 ---
 **Status**
 
-Finished: 2025-05-09. Grade: 100/100.
+Finished: 2025-06-12. Grade: 100/100.
 
 -------
 **Overview**
